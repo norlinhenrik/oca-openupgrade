@@ -152,7 +152,7 @@ def scheduled_date_set_empty_strings_to_null(env):
 def migrate(env, version):
     _avoid_mail_notification_new_constraint(env)
     delete_obsolete_constraints(env)
-    openupgrade.rename_fields(env, _fields_renames)
+    # openupgrade.rename_fields(env, _fields_renames)
     openupgrade.rename_models(env.cr, _models_renames)
     openupgrade.rename_tables(env.cr, _tables_renames)
     openupgrade.rename_columns(env.cr, _columns_renames)

@@ -438,3 +438,17 @@ def migrate(env, version):
     _fast_fill_account_payment_amount_company_currency_signed(env)
     _account_journal_payment_sequence(env)
     _fill_repartition_line_use_in_tax_closing(env)
+    henrik(env)
+
+def henrik(env):
+
+    # 16.0 is using the same XML-ID for another model
+    openupgrade.delete_records_safely_by_xml_id(env, ["website.website_configurator"])
+    # Analytic group --> category
+    openupgrade.update_module_moved_models(
+        env.cr, "account.analytic.group", "account", "account_analytic_category"
+    )
+    openupgrade.rename_models(
+        env.cr,
+        [("account.analytic.group", "account.analytic.category")],
+    )
